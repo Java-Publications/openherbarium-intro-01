@@ -1,5 +1,15 @@
 package org.rapidpm.openherbarium.module.backend.metadataservice.api.mock;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.Metadata;
@@ -7,14 +17,6 @@ import org.rapidpm.openherbarium.module.backend.metadataservice.api.Person;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.Scan;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.SortOrder;
 import org.rapidpm.openherbarium.module.config.Configuration;
-
-import javax.inject.Inject;
-import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static com.sun.javafx.sg.prism.NGCanvas.PATH_BASE;
 
 /**
  *
