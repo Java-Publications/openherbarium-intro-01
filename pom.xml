@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright [2014] [www.rapidpm.org / Sven Ruppert (sven.ruppert@rapidpm.org)]
+  ~
+  ~    Licensed under the Apache License, Version 2.0 (the "License");
+  ~    you may not use this file except in compliance with the License.
+  ~    You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~    Unless required by applicable law or agreed to in writing, software
+  ~    distributed under the License is distributed on an "AS IS" BASIS,
+  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~    See the License for the specific language governing permissions and
+  ~    limitations under the License.
+  -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.rapidpm</groupId>
+    <artifactId>rapidpm-dependencies</artifactId>
+    <version>3.7.0</version>
+    <!--<version>4.0.1</version>-->
+  </parent>
+
+
+  <groupId>org.openherbarium</groupId>
+  <artifactId>openherbarium-parent</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <packaging>jar</packaging>
+
+  <inceptionYear>2017</inceptionYear>
+  <organization>
+    <name>Open Herbarium</name>
+    <url>http://www.open-herbarium.org</url>
+  </organization>
+  <url>https://github.com/Java-Publications/openherbarium-intro-01</url>
+
+  <scm>
+    <url>https://github.com/Java-Publications/openherbarium-intro-01</url>
+    <connection>
+      scm:git:https://github.com/Java-Publications/openherbarium-intro-01.git
+    </connection>
+    <developerConnection>
+      scm:git:https://github.com/Java-Publications/openherbarium-intro-01.git
+    </developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+  <developers>
+    <developer>
+      <name>Sven Ruppert</name>
+      <email>sven.ruppert@gmail.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+  <issueManagement>
+    <system>Github</system>
+    <url>
+      https://github.com/Java-Publications/openherbarium-intro-01/issues
+    </url>
+  </issueManagement>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+
+  <repositories>
+    <repository>
+      <id>vaadin-addons-a</id>
+      <name>Vaadin AddOns repository</name>
+      <url>http://vaadin.com/nexus/content/repositories/vaadin-addons/</url>
+    </repository>
+    <repository>
+      <id>vaadin-addons-b</id>
+      <url>http://maven.vaadin.com/vaadin-addons</url>
+    </repository>
+  </repositories>
+
+  <properties>
+    <!--technical-->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <!--RapidPM-->
+    <rapidpm-functional-reactive.version>0.6.2</rapidpm-functional-reactive.version>
+    <rapidpm-dependencies.version>3.7.0</rapidpm-dependencies.version>
+
+    <!--Vaadin-->
+    <vaadin.version>8.4.5</vaadin.version>
+
+    <!--logging-->
+    <slf4j.version>1.7.25</slf4j.version>
+
+    <!--Meecrowave-->
+    <!--<meecrowave.version>1.2.3</meecrowave.version>-->
+    <!--<junit-jupiter-engine.version>5.1.1</junit-jupiter-engine.version>-->
+    <jaxb-api.version>2.3.0</jaxb-api.version>
+  </properties>
+
+
+  <dependencyManagement>
+    <dependencies>
+      <!--Vaadin -->
+      <dependency>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-bom</artifactId>
+        <version>${vaadin.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.rapidpm</groupId>
+      <artifactId>rapidpm-dependencies-core-logger</artifactId>
+      <version>${rapidpm-dependencies.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.rapidpm</groupId>
+      <artifactId>rapidpm-functional-reactive</artifactId>
+      <version>${rapidpm-functional-reactive.version}</version>
+    </dependency>
+
+    <!--Infrastructure-->
+    <!--<dependency>-->
+    <!--<groupId>org.apache.meecrowave</groupId>-->
+    <!--<artifactId>meecrowave-core</artifactId>-->
+    <!--<version>${meecrowave.version}</version>-->
+    <!--</dependency>-->
+    <!--TDD Extension for Meecrowave-->
+    <!--<dependency>-->
+    <!--<groupId>org.apache.meecrowave</groupId>-->
+    <!--<artifactId>meecrowave-junit</artifactId>-->
+    <!--<scope>test</scope>-->
+    <!--<version>${meecrowave.version}</version>-->
+    <!--</dependency>-->
+
+    <dependency>
+      <groupId>org.rapidpm.microservice</groupId>
+      <artifactId>rapidpm-microservice-modules-core</artifactId>
+      <version>1.0.7-01</version>
+    </dependency>
+
+
+    <!--Vaadin -->
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-themes</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-shared</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-client-compiled</artifactId>
+    </dependency>
+
+    <!--For some examples-->
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-push</artifactId>
+    </dependency>
+
+    <!--Vaadin Add Ons-->
+    <dependency>
+      <groupId>org.vaadin.addon</groupId>
+      <artifactId>v-leaflet</artifactId>
+      <version>2.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.infinitenature</groupId>
+      <artifactId>v-leaflet-zoomify</artifactId>
+      <version>0.0.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>${jaxb-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-core</artifactId>
+      <version>${jaxb-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>${jaxb-api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.vergien.bau</groupId>
+      <artifactId>bean-auto-utils</artifactId>
+      <version>0.0.8</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.7</version>
+    </dependency>
+
+    <!--TDD-->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.8.0-beta2</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <!-- GWT hack. This adds sources, .gwt.xml files etc to jar from source
+          directory. Not quite maven convention but easieast to setup this way. -->
+        <directory>src/main/java</directory>
+      </resource>
+    </resources>
+
+    <plugins>
+      <!--<plugin>-->
+      <!--<groupId>org.apache.meecrowave</groupId>-->
+      <!--<artifactId>meecrowave-maven-plugin</artifactId>-->
+      <!--<version>${meecrowave.version}</version>-->
+      <!--</plugin>-->
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.2</version>
+        <configuration>
+          <!-- das brauchts leider, sonst muessen wir ein web.xml tippen... -->
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-maven-plugin</artifactId>
+        <version>${vaadin.version}</version>
+        <configuration>
+          <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+          <webappDirectory>
+            ${basedir}/target/classes/VAADIN/widgetsets
+          </webappDirectory>
+          <draftCompile>true</draftCompile>
+          <compileReport>false</compileReport>
+          <!-- Change to PRETTY (or possibly DETAILED) to get
+          unobfuscated client side stack traces. A better approach
+          for debugging is to use Super Dev Mode -->
+          <style>OBF</style>
+          <strict>true</strict>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>update-widgetset</goal>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+
+</project>
