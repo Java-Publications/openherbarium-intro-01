@@ -3,7 +3,7 @@ package org.rapidpm.openherbarium.module.ui.component.mainview.searchview.select
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.Label;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.themes.ValoTheme;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.Metadata;
@@ -25,7 +25,10 @@ public class ImageGridLayout extends GridLayout {
 
   private final Button fullscreenButton = new Button();
   private final Button removeButton     = new Button();
-  private final Label  image            = new Label();
+  private final Image  image            = new Image();
+
+  private Metadata metadata;
+  private Scan selectedScan;
 
   public ImageGridLayout() {
     super(2, 8);
@@ -39,9 +42,6 @@ public class ImageGridLayout extends GridLayout {
     addComponent(image, 1, 0, 1, 7);
 
     configureButtons();
-
-    //    final Image image = new Image(NOT_YET_IMPLEMENTED, new ClassResource("test.PNG"));
-//    image.setSizeFull();
   }
 
   @PostConstruct
@@ -52,19 +52,21 @@ public class ImageGridLayout extends GridLayout {
 
 
   public void setMetadata(Metadata metadata) {
-    final Scan defaultScan = metadata.fetchDefaultScan();
-    updateThumbnailByScan(defaultScan);
-    image.setValue(defaultScan.getName());
+    this.metadata = metadata;
+    this.selectedScan = metadata.fetchDefaultScan();
+    updateThumbnailByScan(selectedScan);
   }
 
   public void updateThumbnailByScan(final Scan scan) {
-    image.setValue(scan.getName());
+    image.setCaption(scan.getName());
+    image.setSource(VaadinIcons.COFFEE);
+    this.selectedScan = scan;
   }
 
   private void configureButtons() {
     configureButton(fullscreenButton);
     fullscreenButton.setIcon(VaadinIcons.EXPAND_FULL);
-    fullscreenButton.addClickListener(clickEvent -> Notification.show(NOT_YET_IMPLEMENTED));
+    fullscreenButton.addClickListener(clickEvent -> Notification.show("placeholder for image " + selectedScan.getName()));
 
     configureButton(removeButton);
     removeButton.setIcon(VaadinIcons.CLOSE);

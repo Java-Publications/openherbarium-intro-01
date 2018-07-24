@@ -26,7 +26,6 @@ public class MenuComponent extends Composite implements HasLogger {
 
   public static final String MENU_POINT_DASHBOARD    = "menu.point.dashboard";
   public static final String MENU_POINT_CALCULATE    = "menu.point.calculate";
-  public static final String MENU_POINT_WRITE        = "menu.point.write";
   public static final String MENU_POINT_REPORT       = "menu.point.report";
   public static final String MENU_POINT_EXIT         = "menu.point.exit";
   public static final String MENU_POINT_EXIT_MESSAGE = "menu.point.exit.message";

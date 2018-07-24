@@ -55,6 +55,7 @@ public class MetadataFormLayout extends FormLayout {
           component.setWidth(100, Sizeable.Unit.PERCENTAGE);
           if (component instanceof AbstractField) {
             component.addStyleName(ValoTheme.DATEFIELD_TINY);
+            ((AbstractField) component).setReadOnly(true);
           } else if (component instanceof ComboBox) {
             component.addStyleName(ValoTheme.COMBOBOX_TINY);
             ((ComboBox) component).setEmptySelectionAllowed(false);

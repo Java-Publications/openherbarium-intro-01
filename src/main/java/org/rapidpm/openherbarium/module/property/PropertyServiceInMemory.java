@@ -1,4 +1,4 @@
-package org.rapidpm.openherbarium.module.ui.services.property;
+package org.rapidpm.openherbarium.module.property;
 
 
 import org.rapidpm.openherbarium.module.property.PropertyService;

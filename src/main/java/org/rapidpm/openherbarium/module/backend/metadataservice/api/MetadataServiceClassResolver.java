@@ -1,4 +1,4 @@
-package org.rapidpm.openherbarium.module.ui.component.mainview.searchview;
+package org.rapidpm.openherbarium.module.backend.metadataservice.api;
 
 import org.rapidpm.ddi.ResponsibleFor;
 import org.rapidpm.ddi.implresolver.ClassResolver;
