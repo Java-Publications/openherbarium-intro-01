@@ -1,10 +1,13 @@
 package org.rapidpm.openherbarium.module.ui.component.mainview.searchview.searchgrid.filter;
 
-import com.vaadin.data.HasValue;
-import com.vaadin.ui.*;
-import com.vaadin.ui.themes.ValoTheme;
-
 import java.time.LocalDate;
+import com.vaadin.data.HasValue;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.Composite;
+import com.vaadin.ui.DateField;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 public class TimeSpanFilter extends Composite implements HasValue.ValueChangeListener<LocalDate> {
 
@@ -41,13 +44,13 @@ public class TimeSpanFilter extends Composite implements HasValue.ValueChangeLis
 
 
   @Override
-  public void valueChange(HasValue.ValueChangeEvent valueChangeEvent) {
+  public void valueChange(HasValue.ValueChangeEvent<LocalDate> valueChangeEvent) {
     final Component component = valueChangeEvent.getComponent();
     if (!(component instanceof DateField)) {
       return;
     }
     final DateField  dateField = (DateField) component;
-    final LocalDate  newDate   = (LocalDate) valueChangeEvent.getValue();
+    final LocalDate  newDate   = valueChangeEvent.getValue();
     final DateFilter filter    = (DateFilter) dateField.getData();
     switch (filter) {
       case FROM:

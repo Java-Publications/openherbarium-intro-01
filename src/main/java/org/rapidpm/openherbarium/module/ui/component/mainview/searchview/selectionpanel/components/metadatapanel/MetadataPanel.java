@@ -1,18 +1,17 @@
 package org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components.metadatapanel;
 
-import com.vaadin.data.HasValue;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.Metadata;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.Scan;
 import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components.metadatapanel.components.ImageGridLayout;
 import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components.metadatapanel.components.MetadataFormLayout;
+import com.vaadin.data.HasValue;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.VerticalLayout;
 
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
-public class MetadataPanel extends Panel implements HasValue.ValueChangeListener {
+public class MetadataPanel extends Panel implements HasValue.ValueChangeListener<Scan> {
 
   private final VerticalLayout contentLayout = new VerticalLayout();
 
@@ -36,8 +35,8 @@ public class MetadataPanel extends Panel implements HasValue.ValueChangeListener
   }
 
   @Override
-  public void valueChange(HasValue.ValueChangeEvent valueChangeEvent) {
-    final Scan scan = (Scan) valueChangeEvent.getValue();
+  public void valueChange(HasValue.ValueChangeEvent<Scan> valueChangeEvent) {
+    final Scan scan = valueChangeEvent.getValue();
     tasksAndThumbnailLayout.updateThumbnailByScan(scan);
   }
 

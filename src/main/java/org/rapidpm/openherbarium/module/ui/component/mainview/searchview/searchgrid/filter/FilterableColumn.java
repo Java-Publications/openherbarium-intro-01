@@ -2,17 +2,17 @@ package org.rapidpm.openherbarium.module.ui.component.mainview.searchview.search
 
 import com.vaadin.ui.Grid;
 
-public class FilterableColumn {
+public class FilterableColumn<T, V> {
 
-  private final Grid.Column column;
+  private final Grid.Column<T, V> column;
   private boolean isFilterable = false;
 
-  public FilterableColumn(Grid.Column column, boolean isFilterable) {
+  public FilterableColumn(Grid.Column<T, V> column, boolean isFilterable) {
     this.column = column;
     this.isFilterable = isFilterable;
   }
 
-  public Grid.Column getColumn() {
+  public Grid.Column<T, V> getColumn() {
     return column;
   }
 
@@ -26,12 +26,14 @@ public class FilterableColumn {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
+    if (this == o) {
       return true;
-    if (o == null || getClass() != o.getClass())
+    }
+    if (o == null || getClass() != o.getClass()) {
       return false;
+    }
 
-    FilterableColumn that = (FilterableColumn) o;
+    FilterableColumn<T, V> that = (FilterableColumn) o;
 
     return column.getId().equals(that.column.getId());
   }

@@ -1,18 +1,24 @@
 package org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components.metadatapanel.components;
 
-import com.vaadin.data.Binder;
-import com.vaadin.data.HasValue;
-import com.vaadin.server.Sizeable;
-import com.vaadin.ui.*;
-import com.vaadin.ui.themes.ValoTheme;
+import static org.rapidpm.openherbarium.module.ui.component.mainview.searchview.searchgrid.SearchGrid.DATE;
+import static org.rapidpm.openherbarium.module.ui.component.mainview.searchview.searchgrid.SearchGrid.DETERMINER;
+import static org.rapidpm.openherbarium.module.ui.component.mainview.searchview.searchgrid.SearchGrid.RECORDER;
+import static org.rapidpm.openherbarium.module.ui.component.mainview.searchview.searchgrid.SearchGrid.SCANS;
+import static org.rapidpm.openherbarium.module.ui.component.mainview.searchview.searchgrid.SearchGrid.TAXON_NAME;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.Metadata;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.Scan;
 import org.rapidpm.openherbarium.module.property.PropertyService;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
-import static org.rapidpm.openherbarium.module.ui.component.mainview.searchview.searchgrid.SearchGrid.*;
+import com.vaadin.data.Binder;
+import com.vaadin.data.HasValue;
+import com.vaadin.server.Sizeable;
+import com.vaadin.ui.AbstractField;
+import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.DateField;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.themes.ValoTheme;
 
 public class MetadataFormLayout extends FormLayout {
 
@@ -55,11 +61,11 @@ public class MetadataFormLayout extends FormLayout {
           component.setWidth(100, Sizeable.Unit.PERCENTAGE);
           if (component instanceof AbstractField) {
             component.addStyleName(ValoTheme.DATEFIELD_TINY);
-            ((AbstractField) component).setReadOnly(true);
+            ((AbstractField<?>) component).setReadOnly(true);
           } else if (component instanceof ComboBox) {
             component.addStyleName(ValoTheme.COMBOBOX_TINY);
-            ((ComboBox) component).setEmptySelectionAllowed(false);
-            ((ComboBox) component).setTextInputAllowed(false);
+            ((ComboBox<?>) component).setEmptySelectionAllowed(false);
+            ((ComboBox<?>) component).setTextInputAllowed(false);
           }
         });
   }

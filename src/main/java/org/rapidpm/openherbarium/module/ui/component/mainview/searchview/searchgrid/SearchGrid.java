@@ -1,13 +1,19 @@
 package org.rapidpm.openherbarium.module.ui.component.mainview.searchview.searchgrid;
 
-import com.vaadin.data.ValueProvider;
-import com.vaadin.shared.Registration;
-import com.vaadin.shared.ui.grid.GridStaticCellType;
-import com.vaadin.ui.*;
-import com.vaadin.ui.components.grid.HeaderCell;
-import com.vaadin.ui.components.grid.HeaderRow;
-import com.vaadin.ui.renderers.TextRenderer;
-import com.vaadin.ui.themes.ValoTheme;
+import static java.util.stream.Collectors.joining;
+import static org.rapidpm.frp.matcher.Case.match;
+import static org.rapidpm.frp.matcher.Case.matchCase;
+import static org.rapidpm.frp.model.Result.failure;
+import static org.rapidpm.frp.model.Result.success;
+import static org.rapidpm.openherbarium.module.ui.component.mainview.searchview.SearchView.MAX_SELECTED_METADATA;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.frp.model.Pair;
 import org.rapidpm.frp.model.Triple;
@@ -19,17 +25,18 @@ import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.interfa
 import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.searchgrid.dataprovider.MetadataDataProvider;
 import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.searchgrid.filter.FilterableColumn;
 import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.searchgrid.filter.TimeSpanFilter;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import java.util.*;
-
-import static java.util.stream.Collectors.joining;
-import static org.rapidpm.frp.matcher.Case.match;
-import static org.rapidpm.frp.matcher.Case.matchCase;
-import static org.rapidpm.frp.model.Result.failure;
-import static org.rapidpm.frp.model.Result.success;
-import static org.rapidpm.openherbarium.module.ui.component.mainview.searchview.SearchView.MAX_SELECTED_METADATA;
+import com.vaadin.data.ValueProvider;
+import com.vaadin.shared.Registration;
+import com.vaadin.shared.ui.grid.GridStaticCellType;
+import com.vaadin.ui.CheckBox;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.Grid;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.components.grid.HeaderCell;
+import com.vaadin.ui.components.grid.HeaderRow;
+import com.vaadin.ui.renderers.TextRenderer;
+import com.vaadin.ui.themes.ValoTheme;
 
 
 public class SearchGrid extends Grid<Metadata>
@@ -48,9 +55,9 @@ public class SearchGrid extends Grid<Metadata>
   @Inject private PropertyService      propertyService;
   @Inject private MetadataDataProvider dataProvider;
 
-  private final Set<FilterableColumn>         columnDecorators  = new HashSet<>();
-  private final List<Metadata>                selectedMetadatas = new ArrayList<>();
-  private final List<SelectionListSubscriber> subscribers       = new ArrayList<>();
+  private final Set<FilterableColumn<Metadata, ?>> columnDecorators = new HashSet<>();
+  private final List<Metadata> selectedMetadatas = new ArrayList<>();
+  private final List<SelectionListSubscriber> subscribers = new ArrayList<>();
 
   private void buildAndAddColumns() {
     addAllColumns();
@@ -59,7 +66,8 @@ public class SearchGrid extends Grid<Metadata>
 
   private void addAllColumns() {
 
-    final FilterableColumn columnDecoratorTaxon = new FilterableColumn(
+    final FilterableColumn<Metadata, String> columnDecoratorTaxon =
+        new FilterableColumn<>(
         addColumn(Metadata::getTaxonName)
             .setCaption(propertyService.resolve(TAXON_NAME))
             .setId(TAXON_NAME),
@@ -69,8 +77,7 @@ public class SearchGrid extends Grid<Metadata>
     columnDecorators.add(columnDecoratorTaxon);
 
 
-    final FilterableColumn columnDecoratorDate =
-        new FilterableColumn(
+    final FilterableColumn<Metadata, LocalDate> columnDecoratorDate = new FilterableColumn<>(
             addColumn(Metadata::getDate)
                 .setCaption(propertyService.resolve(DATE))
                 .setId(DATE),
@@ -80,8 +87,8 @@ public class SearchGrid extends Grid<Metadata>
     columnDecorators.add(columnDecoratorDate);
 
 
-    final FilterableColumn columnDecoratorRecorder =
-        new FilterableColumn(addColumn(metadata -> metadata.getRecorder().getFirstName() + " "
+    final FilterableColumn<Metadata, String> columnDecoratorRecorder =
+        new FilterableColumn<>(addColumn(metadata -> metadata.getRecorder().getFirstName() + " "
                                                    + metadata.getRecorder().getLastName())
                                  .setCaption(propertyService.resolve(RECORDER))
                                  .setId(RECORDER),
@@ -90,7 +97,7 @@ public class SearchGrid extends Grid<Metadata>
     columnDecorators.add(columnDecoratorRecorder);
 
 
-    final FilterableColumn columnDecoratorDeterminer = new FilterableColumn(
+    final FilterableColumn<Metadata, String> columnDecoratorDeterminer = new FilterableColumn<>(
         addColumn(metadata -> metadata.getDeterminer().getFirstName() + " "
                               + metadata.getDeterminer().getLastName())
             .setCaption(propertyService.resolve(DETERMINER))
@@ -100,7 +107,7 @@ public class SearchGrid extends Grid<Metadata>
     columnDecorators.add(columnDecoratorDeterminer);
 
 
-    final FilterableColumn columnDecoratorScans = new FilterableColumn(
+    final FilterableColumn<Metadata, Set<Scan>> columnDecoratorScans = new FilterableColumn<>(
         addColumn(Metadata::getScans)
             .setCaption(propertyService.resolve(SCANS))
             .setId(SCANS)
@@ -120,7 +127,8 @@ public class SearchGrid extends Grid<Metadata>
     columnDecorators.add(columnDecoratorScans);
 
 
-    final FilterableColumn columnDecoratorCheckBox = new FilterableColumn(
+    final FilterableColumn<Metadata, CheckBox> columnDecoratorCheckBox =
+        new FilterableColumn<>(
         addComponentColumn(metadata -> {
           final CheckBox checkBox = new CheckBox();
           checkBox.setData(metadata);
