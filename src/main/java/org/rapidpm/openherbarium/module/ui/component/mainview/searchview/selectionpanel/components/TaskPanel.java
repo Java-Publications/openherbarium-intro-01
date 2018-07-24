@@ -42,7 +42,7 @@ public class TaskPanel extends Composite {
   }
 
   @PostConstruct
-  private void postConstruct(){
+  private void postConstruct() {
     tasksComboBox.setCaption(propertyService.resolve(TASKS));
     tasksComboBox.setItems(Arrays.asList(propertyService.resolve(COMPARE)));
     tasksComboBox.setValue(propertyService.resolve(COMPARE));
