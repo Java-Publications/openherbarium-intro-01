@@ -19,17 +19,15 @@
 
 package org.rapidpm.openherbarium.module.vaadin.generic.bootstrap;
 
+import javax.inject.Inject;
+import org.rapidpm.dependencies.core.logger.HasLogger;
 import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
-import org.rapidpm.dependencies.core.logger.HasLogger;
-
-import javax.inject.Inject;
 
 @PreserveOnRefresh
 @Widgetset("org.rapidpm.openherbarium.module.vaadin.generic.bootstrap.VaadinJumpstartWidgetset")

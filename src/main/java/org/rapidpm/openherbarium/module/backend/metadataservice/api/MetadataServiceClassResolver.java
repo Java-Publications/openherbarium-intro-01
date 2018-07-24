@@ -2,7 +2,6 @@ package org.rapidpm.openherbarium.module.backend.metadataservice.api;
 
 import org.rapidpm.ddi.ResponsibleFor;
 import org.rapidpm.ddi.implresolver.ClassResolver;
-import org.rapidpm.openherbarium.module.backend.metadataservice.api.MetadataService;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.mock.MetadataServiceMOCKClient;
 
 @ResponsibleFor(MetadataService.class)

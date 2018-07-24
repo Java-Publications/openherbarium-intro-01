@@ -1,19 +1,20 @@
 package org.rapidpm.openherbarium.module.ui.component.mainview;
 
-import com.vaadin.ui.*;
+import static com.vaadin.ui.themes.ValoTheme.MENU_ROOT;
+import static org.rapidpm.openherbarium.module.vaadin.generic.ComponentIDGenerator.cssLayoutID;
+import static org.rapidpm.openherbarium.module.vaadin.generic.ComponentIDGenerator.horizontalLayoutID;
+import static org.rapidpm.openherbarium.module.vaadin.generic.ComponentIDGenerator.verticalLayoutID;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.openherbarium.module.property.PropertyService;
 import org.rapidpm.openherbarium.module.ui.component.mainview.dashboard.DashBoard;
 import org.rapidpm.openherbarium.module.ui.component.menu.MenuComponent;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
-import static com.vaadin.ui.themes.ValoTheme.MENU_ROOT;
-import static org.rapidpm.ddi.DI.activateDI;
-import static org.rapidpm.openherbarium.module.vaadin.generic.ComponentIDGenerator.cssLayoutID;
-import static org.rapidpm.openherbarium.module.vaadin.generic.ComponentIDGenerator.horizontalLayoutID;
-import static org.rapidpm.openherbarium.module.vaadin.generic.ComponentIDGenerator.verticalLayoutID;
+import com.vaadin.ui.AbstractComponent;
+import com.vaadin.ui.Composite;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.VerticalLayout;
 
 /**
  *

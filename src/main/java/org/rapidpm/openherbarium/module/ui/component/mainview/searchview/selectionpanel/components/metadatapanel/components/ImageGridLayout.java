@@ -1,20 +1,16 @@
 package org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components.metadatapanel.components;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import org.rapidpm.openherbarium.module.backend.metadataservice.api.Metadata;
+import org.rapidpm.openherbarium.module.backend.metadataservice.api.Scan;
+import org.rapidpm.openherbarium.module.property.PropertyService;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.themes.ValoTheme;
-import org.rapidpm.openherbarium.module.backend.metadataservice.api.Metadata;
-import org.rapidpm.openherbarium.module.backend.metadataservice.api.Scan;
-import org.rapidpm.openherbarium.module.property.PropertyService;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-
-import static org.rapidpm.openherbarium.module.ui.component.mainview.searchview.SearchView.NOT_YET_IMPLEMENTED;
-
 
 public class ImageGridLayout extends GridLayout {
 

@@ -1,11 +1,8 @@
 package org.rapidpm.openherbarium.module.property;
 
-
-import org.rapidpm.openherbarium.module.property.PropertyService;
-
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 
 
 /**
