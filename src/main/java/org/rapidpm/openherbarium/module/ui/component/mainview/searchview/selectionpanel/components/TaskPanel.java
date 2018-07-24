@@ -1,13 +1,18 @@
 package org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components;
 
-import com.sun.tools.javac.util.List;
-import com.vaadin.icons.VaadinIcons;
-import com.vaadin.ui.*;
-import com.vaadin.ui.themes.ValoTheme;
-import org.rapidpm.openherbarium.module.property.PropertyService;
-
+import java.util.Arrays;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import org.rapidpm.openherbarium.module.property.PropertyService;
+import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Composite;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.themes.ValoTheme;
 
 
 public class TaskPanel extends Composite {
@@ -39,7 +44,7 @@ public class TaskPanel extends Composite {
   @PostConstruct
   private void postConstruct(){
     tasksComboBox.setCaption(propertyService.resolve(TASKS));
-    tasksComboBox.setItems(List.of(propertyService.resolve(COMPARE)));
+    tasksComboBox.setItems(Arrays.asList(propertyService.resolve(COMPARE)));
     tasksComboBox.setValue(propertyService.resolve(COMPARE));
   }
 
