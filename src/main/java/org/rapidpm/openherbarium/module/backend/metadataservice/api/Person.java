@@ -8,12 +8,14 @@ public class Person {
     super();
   }
 
-  public Person(String firstName, String lastName) {
+  public Person(long id, String firstName, String lastName) {
     super();
+    this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
   }
 
+  private long id;
   private String firstName;
   private String lastName;
 
@@ -33,4 +35,26 @@ public class Person {
     this.lastName = lastName;
   }
 
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  @Override
+  public String toString() {
+    return PersonBeanUtil.doToString(this);
+  }
+
+  @Override
+  public int hashCode() {
+    return PersonBeanUtil.doToHashCode(this);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return PersonBeanUtil.doEquals(this, obj);
+  }
 }

@@ -1,12 +1,11 @@
 package org.rapidpm.openherbarium.module.backend.metadataservice.api;
 
-import net.vergien.beanautoutils.annotation.Bean;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import net.vergien.beanautoutils.annotation.Bean;
 
 // TODO implementing QUAD breaks JSON deserialization because of missing default constructor
 @Bean
@@ -87,4 +86,18 @@ public class Metadata {
     return new ArrayList<>();
   }
 
+  @Override
+  public String toString() {
+    return MetadataBeanUtil.doToString(this);
+  }
+
+  @Override
+  public int hashCode() {
+    return MetadataBeanUtil.doToHashCode(this);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return MetadataBeanUtil.doEquals(this, obj);
+  }
 }

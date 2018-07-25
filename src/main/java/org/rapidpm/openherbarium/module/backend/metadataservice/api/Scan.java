@@ -25,6 +25,27 @@ public class Scan implements Comparable<Scan> {
 
   @Override
   public int compareTo(Scan scan) {
-    return name.compareTo(scan.getName());
+    int nameCompare = name.compareTo(scan.getName());
+    if (nameCompare != 0) {
+      return nameCompare;
+    } else {
+      // to be in sync with equals implementation
+      return Long.compare(id, scan.id);
+    }
+  }
+
+  @Override
+  public String toString() {
+    return ScanBeanUtil.doToString(this);
+  }
+
+  @Override
+  public int hashCode() {
+    return ScanBeanUtil.doToHashCode(this);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    return ScanBeanUtil.doEquals(this, obj);
   }
 }
