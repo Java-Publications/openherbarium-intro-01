@@ -1,28 +1,35 @@
 package org.rapidpm.openherbarium.module.ui.component.menu;
 
-import com.vaadin.icons.VaadinIcons;
-import com.vaadin.ui.*;
+import static com.vaadin.icons.VaadinIcons.ABACUS;
+import static com.vaadin.icons.VaadinIcons.VIEWPORT;
+import static com.vaadin.ui.themes.ValoTheme.BUTTON_BORDERLESS;
+import static com.vaadin.ui.themes.ValoTheme.BUTTON_HUGE;
+import static com.vaadin.ui.themes.ValoTheme.BUTTON_ICON_ALIGN_TOP;
+import static com.vaadin.ui.themes.ValoTheme.MENU_ITEM;
+import static com.vaadin.ui.themes.ValoTheme.MENU_PART;
+import static com.vaadin.ui.themes.ValoTheme.MENU_PART_LARGE_ICONS;
+import static org.rapidpm.ddi.DI.activateDI;
+import static org.rapidpm.openherbarium.module.vaadin.generic.ComponentIDGenerator.buttonID;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.frp.model.Pair;
 import org.rapidpm.openherbarium.module.property.PropertyService;
 import org.rapidpm.openherbarium.module.ui.component.mainview.dashboard.DashBoard;
 import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.SearchView;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
-
-import static com.vaadin.icons.VaadinIcons.ABACUS;
-import static com.vaadin.icons.VaadinIcons.VIEWPORT;
-import static com.vaadin.ui.themes.ValoTheme.*;
-import static org.rapidpm.ddi.DI.activateDI;
-import static org.rapidpm.openherbarium.module.vaadin.generic.ComponentIDGenerator.buttonID;
+import com.vaadin.icons.VaadinIcons;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.Composite;
+import com.vaadin.ui.CssLayout;
+import com.vaadin.ui.Layout;
 
 /**
  *
  */
-public class MenuComponent extends Composite implements HasLogger {
+public class MenuComponent extends Composite implements HasLogger, ViewDisplay {
 
   public static final String MENU_POINT_DASHBOARD    = "menu.point.dashboard";
   public static final String MENU_POINT_CALCULATE    = "menu.point.calculate";
@@ -68,11 +75,10 @@ public class MenuComponent extends Composite implements HasLogger {
   private Pair<String, Button> createMenuButton(VaadinIcons icon, String caption,
                                                 Supplier<Composite> content) {
     final Button button = new Button(property(caption), (e) -> {
-      contentLayout.removeAllComponents();
       Composite instance  = content.get();
       logger().info("activating menu component " + instance);
       Composite component = activateDI(instance);
-      contentLayout.addComponent(component);
+      displayView(component);
     });
     button.setIcon(icon);
     button.addStyleName(BUTTON_HUGE);
@@ -83,6 +89,12 @@ public class MenuComponent extends Composite implements HasLogger {
 
     button.setId(buttonID().apply(this.getClass(), caption));
     return new Pair<>(caption, button);
+  }
+
+  @Override
+  public void displayView(Composite component) {
+    contentLayout.removeAllComponents();
+    contentLayout.addComponent(component);
   }
 
 
