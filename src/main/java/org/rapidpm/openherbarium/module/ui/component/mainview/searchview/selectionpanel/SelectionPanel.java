@@ -1,26 +1,36 @@
 package org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel;
 
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.VerticalLayout;
+import static org.rapidpm.ddi.DI.activateDI;
+import static org.rapidpm.openherbarium.module.ui.component.mainview.searchview.SearchView.MAX_SELECTED_METADATA;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import org.rapidpm.ddi.DI;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.Metadata;
+import org.rapidpm.openherbarium.module.backend.metadataservice.api.Scan;
 import org.rapidpm.openherbarium.module.property.PropertyService;
+import org.rapidpm.openherbarium.module.ui.component.mainview.compareview.CompareView;
 import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.interfaces.selectionlist.SelectionListSubscriber;
 import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.interfaces.selectionlist.VaadinSelectionListSubject;
 import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components.TaskPanel;
+import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components.TaskPanel.TaskPanelEvent;
+import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components.TaskPanel.TaskPanelListener;
 import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components.metadatapanel.MetadataPanel;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import java.util.*;
-import java.util.stream.Collectors;
-
-import static org.rapidpm.openherbarium.module.ui.component.mainview.searchview.SearchView.MAX_SELECTED_METADATA;
+import org.rapidpm.openherbarium.module.ui.component.menu.ViewDisplay;
+import com.vaadin.server.VaadinSession;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.VerticalLayout;
 
 
 public class SelectionPanel extends Panel
-    implements SelectionListSubscriber, VaadinSelectionListSubject<Metadata> , HasLogger {
+    implements SelectionListSubscriber, VaadinSelectionListSubject<Metadata>, HasLogger,
+    TaskPanelListener {
 
   private static final String SELECTION = "searchview.selectionpanel.selection";
 
@@ -42,6 +52,7 @@ public class SelectionPanel extends Panel
     doLayout();
     setContent(contentLayout);
     rebuildMetaDataPanels();
+    taskPanel.addTaskPanelListener(this);
   }
 
   private void doLayout() {
@@ -105,4 +116,14 @@ public class SelectionPanel extends Panel
   public void addSubscriber(final SelectionListSubscriber subscriber) {
     subscribers.add(subscriber);
   }
+
+  @Override
+  public void taskStarted(TaskPanelEvent event) {
+    List<Scan> scans = metadataPanelByMetadata.values().stream().map(MetadataPanel::getSelectedScan)
+        .collect(Collectors.toList());
+    CompareView compareView = activateDI(CompareView.class);
+    compareView.setScans(scans.get(0), scans.get(1));
+    VaadinSession.getCurrent().getAttribute(ViewDisplay.class).displayView(compareView);
+  }
+
 }

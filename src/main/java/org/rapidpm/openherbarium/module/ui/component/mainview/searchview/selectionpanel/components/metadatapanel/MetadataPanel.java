@@ -18,6 +18,8 @@ public class MetadataPanel extends Panel implements HasValue.ValueChangeListener
   @Inject private ImageGridLayout    tasksAndThumbnailLayout;
   @Inject private MetadataFormLayout formLayout;
 
+  private Scan selectedScan;
+
   public MetadataPanel() {
     contentLayout.setSizeFull();
     setSizeFull();
@@ -36,13 +38,17 @@ public class MetadataPanel extends Panel implements HasValue.ValueChangeListener
 
   @Override
   public void valueChange(HasValue.ValueChangeEvent<Scan> valueChangeEvent) {
-    final Scan scan = valueChangeEvent.getValue();
-    tasksAndThumbnailLayout.updateThumbnailByScan(scan);
+    selectedScan = valueChangeEvent.getValue();
+    tasksAndThumbnailLayout.updateThumbnailByScan(selectedScan);
   }
 
   public void setMetadata(Metadata metadata) {
     this.formLayout.setMetadata(metadata);
     this.tasksAndThumbnailLayout.setMetadata(metadata);
+  }
+
+  public Scan getSelectedScan() {
+    return selectedScan;
   }
 
 }

@@ -1,21 +1,45 @@
 package org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import org.rapidpm.openherbarium.module.backend.metadataservice.api.Metadata;
 import org.rapidpm.openherbarium.module.property.PropertyService;
+import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.interfaces.selectionlist.SelectionListSubscriber;
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.shared.Registration;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Composite;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.themes.ValoTheme;
 
 
-public class TaskPanel extends Composite {
+public class TaskPanel extends Composite implements SelectionListSubscriber {
+
+  @FunctionalInterface
+  public interface TaskPanelListener {
+    void taskStarted(TaskPanelEvent event);
+  }
+
+  public class TaskPanelEvent extends com.vaadin.ui.Component.Event {
+
+    private final String task;
+
+    public TaskPanelEvent(com.vaadin.ui.Component source, String task) {
+      super(source);
+      this.task = task;
+    }
+
+    public String getTask() {
+      return task;
+    }
+  }
 
   @Inject private PropertyService propertyService;
 
@@ -23,10 +47,12 @@ public class TaskPanel extends Composite {
   public static final String RUN     = "taskpanel.run";
   public static final String COMPARE = "taskpanel.compare";
 
-  private final Button           goButton       = new Button();
-  private final ComboBox<String> tasksComboBox  = new ComboBox<>();
-  private final FormLayout       tasksBoxLayout = new FormLayout(tasksComboBox);
-  private final HorizontalLayout contentLayout  = new HorizontalLayout(tasksBoxLayout, goButton);
+  private final Button goButton = new Button();
+  private final ComboBox<String> tasksComboBox = new ComboBox<>();
+  private final FormLayout tasksBoxLayout = new FormLayout(tasksComboBox);
+  private final HorizontalLayout contentLayout = new HorizontalLayout(tasksBoxLayout, goButton);
+  private final Collection<Metadata> metadata = new ArrayList<Metadata>();
+  private final List<TaskPanelListener> taskPanelListeners = new ArrayList<>();
 
   public TaskPanel() {
 
@@ -61,7 +87,10 @@ public class TaskPanel extends Composite {
     goButton.setIcon(VaadinIcons.CHEVRON_CIRCLE_RIGHT, RUN);
     goButton.setSizeUndefined();
     goButton.addStyleName(ValoTheme.BUTTON_SMALL);
-    goButton.addClickListener(event -> Notification.show(TaskPanel.class.getSimpleName() + " - not yet implemented"));
+    goButton.addClickListener(event -> {
+      taskPanelListeners
+          .forEach(listener -> listener.taskStarted(new TaskPanelEvent(this, COMPARE)));
+    });
   }
 
   private void buildContentLayout() {
@@ -77,5 +106,16 @@ public class TaskPanel extends Composite {
   @Override
   public void setEnabled(boolean enabled) {
     contentLayout.setEnabled(enabled);
+  }
+
+  @Override
+  public void currentSelectionListIs(Collection<Metadata> metadata) {
+    this.metadata.clear();
+    this.metadata.addAll(metadata);
+  }
+
+  public Registration addTaskPanelListener(TaskPanelListener listener) {
+    taskPanelListeners.add(listener);
+    return () -> taskPanelListeners.remove(listener);
   }
 }
