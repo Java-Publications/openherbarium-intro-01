@@ -16,7 +16,6 @@ import javax.inject.Inject;
 public class SearchView extends Composite implements HasLogger {
 
   public static final int    MAX_SELECTED_METADATA = 2;
-  public static final String NOT_YET_IMPLEMENTED   = SearchView.class.getSimpleName() + " < Not yet implemented >";
 
   @Inject private SearchGrid     searchGrid;
   @Inject private SelectionPanel selectionPanel;
@@ -38,7 +37,6 @@ public class SearchView extends Composite implements HasLogger {
     mainLayout.addComponentsAndExpand(searchGrid, selectionPanel);
     mainLayout.setExpandRatio(searchGrid, 0.75f);
     mainLayout.setExpandRatio(selectionPanel, 0.25f);
-
   }
 
 }

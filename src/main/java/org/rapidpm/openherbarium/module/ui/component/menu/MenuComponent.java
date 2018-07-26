@@ -1,6 +1,6 @@
 package org.rapidpm.openherbarium.module.ui.component.menu;
 
-import static com.vaadin.icons.VaadinIcons.ABACUS;
+import static com.vaadin.icons.VaadinIcons.SEARCH;
 import static com.vaadin.icons.VaadinIcons.VIEWPORT;
 import static com.vaadin.ui.themes.ValoTheme.BUTTON_BORDERLESS;
 import static com.vaadin.ui.themes.ValoTheme.BUTTON_HUGE;
@@ -32,7 +32,7 @@ import com.vaadin.ui.Layout;
 public class MenuComponent extends Composite implements HasLogger, ViewDisplay {
 
   public static final String MENU_POINT_DASHBOARD    = "menu.point.dashboard";
-  public static final String MENU_POINT_CALCULATE    = "menu.point.calculate";
+  public static final String MENU_POINT_SEARCH       = "menu.point.search";
   public static final String MENU_POINT_REPORT       = "menu.point.report";
   public static final String MENU_POINT_EXIT         = "menu.point.exit";
   public static final String MENU_POINT_EXIT_MESSAGE = "menu.point.exit.message";
@@ -64,7 +64,7 @@ public class MenuComponent extends Composite implements HasLogger, ViewDisplay {
   private Component[] getComponents() {
     return Stream
         .of(createMenuButton(VIEWPORT, MENU_POINT_DASHBOARD, DashBoard::new),
-            createMenuButton(ABACUS, MENU_POINT_CALCULATE, SearchView::new)
+            createMenuButton(SEARCH, MENU_POINT_SEARCH, SearchView::new)
         )
         .map(Pair::getT2)
         .map(Component.class::cast)

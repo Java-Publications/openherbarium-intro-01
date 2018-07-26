@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.openherbarium.module.property.PropertyService;
 import org.rapidpm.openherbarium.module.ui.component.mainview.dashboard.DashBoard;
+import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.SearchView;
 import org.rapidpm.openherbarium.module.ui.component.menu.MenuComponent;
 import org.rapidpm.openherbarium.module.ui.component.menu.ViewDisplay;
 import com.vaadin.server.VaadinSession;
@@ -43,7 +44,8 @@ public class MainView extends Composite implements HasLogger {
   }
 
   @Inject private MenuComponent menuComponent;
-  @Inject private DashBoard dashBoard;
+//  @Inject private DashBoard dashBoard;
+  @Inject private SearchView    firstView;
 
   private final CssLayout        contentLayout = new CssLayout();
   private final VerticalLayout   menuLayout    = new VerticalLayout();
@@ -54,7 +56,7 @@ public class MainView extends Composite implements HasLogger {
     logger().info("starting postconstruct of " + this.getClass().getSimpleName());
 
     contentLayout.setId(cssLayoutID().apply(MainView.class, CONTENT_LAYOUT));
-    contentLayout.addComponent(dashBoard);
+    contentLayout.addComponent(firstView);
     contentLayout.setSizeFull();
 
     menuComponent.setContentLayout(contentLayout);
