@@ -262,7 +262,19 @@
       <!--<artifactId>meecrowave-maven-plugin</artifactId>-->
       <!--<version>${meecrowave.version}</version>-->
       <!--</plugin>-->
-
+	<plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>0.9.7</version>
+        <configuration>
+          <to>
+            <image>rapid/openherbarium</image>
+          </to>
+          <container>
+          	<mainClass>org.rapidpm.microservice.Main</mainClass>
+          </container>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
