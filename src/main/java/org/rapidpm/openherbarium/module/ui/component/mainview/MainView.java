@@ -8,7 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.openherbarium.module.property.PropertyService;
-import org.rapidpm.openherbarium.module.ui.component.mainview.dashboard.DashBoard;
 import org.rapidpm.openherbarium.module.ui.component.mainview.searchview.SearchView;
 import org.rapidpm.openherbarium.module.ui.component.menu.MenuComponent;
 import org.rapidpm.openherbarium.module.ui.component.menu.ViewDisplay;
