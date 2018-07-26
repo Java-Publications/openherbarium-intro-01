@@ -13741,7 +13741,7 @@ PRIMARY KEY (id),
 FOREIGN KEY (metadata_id) REFERENCES metadata(id));
 INSERT INTO scans (id, metadata_id, name)
 VALUES
-(1, 47267, '');
+(1, 47267, '47267');
 INSERT INTO scans (id, metadata_id, name)
 VALUES
-(2, 47267, 'b');
+(2, 47267, '47267_b');
