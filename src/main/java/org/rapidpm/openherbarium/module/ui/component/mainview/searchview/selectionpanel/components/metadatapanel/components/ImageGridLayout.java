@@ -1,15 +1,18 @@
 package org.rapidpm.openherbarium.module.ui.component.mainview.searchview.selectionpanel.components.metadatapanel.components;
 
+import static org.rapidpm.ddi.DI.activateDI;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.Metadata;
 import org.rapidpm.openherbarium.module.backend.metadataservice.api.Scan;
 import org.rapidpm.openherbarium.module.property.PropertyService;
+import org.rapidpm.openherbarium.module.ui.component.mainview.detailview.DetailView;
+import org.rapidpm.openherbarium.module.ui.component.menu.ViewDisplay;
 import com.vaadin.icons.VaadinIcons;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Image;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.themes.ValoTheme;
 
 public class ImageGridLayout extends GridLayout {
@@ -62,7 +65,11 @@ public class ImageGridLayout extends GridLayout {
   private void configureButtons() {
     configureButton(fullscreenButton);
     fullscreenButton.setIcon(VaadinIcons.EXPAND_FULL);
-    fullscreenButton.addClickListener(clickEvent -> Notification.show("placeholder for image " + selectedScan.getName()));
+    fullscreenButton.addClickListener(clickEvent -> {
+      DetailView detailView = activateDI(DetailView.class);
+      detailView.setScan(selectedScan);
+      VaadinSession.getCurrent().getAttribute(ViewDisplay.class).displayView(detailView);
+    });
 
     configureButton(removeButton);
     removeButton.setIcon(VaadinIcons.CLOSE);

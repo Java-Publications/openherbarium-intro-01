@@ -10,6 +10,8 @@ import org.rapidpm.dependencies.core.logger.HasLogger;
 import org.rapidpm.openherbarium.module.property.PropertyService;
 import org.rapidpm.openherbarium.module.ui.component.mainview.dashboard.DashBoard;
 import org.rapidpm.openherbarium.module.ui.component.menu.MenuComponent;
+import org.rapidpm.openherbarium.module.ui.component.menu.ViewDisplay;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.AbstractComponent;
 import com.vaadin.ui.Composite;
 import com.vaadin.ui.CssLayout;
@@ -56,6 +58,9 @@ public class MainView extends Composite implements HasLogger {
     contentLayout.setSizeFull();
 
     menuComponent.setContentLayout(contentLayout);
+
+    // TODO this is ugly, it may brake multi ui use cases, but we need it for navigation
+    VaadinSession.getCurrent().setAttribute(ViewDisplay.class, menuComponent);
 
     menuLayout.setId(verticalLayoutID().apply(MainView.class, MENU_LAYOUT));
     menuLayout.setStyleName(MENU_ROOT);
